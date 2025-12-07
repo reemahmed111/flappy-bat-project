@@ -8,10 +8,9 @@
 #game {
     width: 400px;
     height: 600px;
-    background: lightblue;
     overflow: hidden;
     position:relative;
-    border: 2px solid black;
+    border: 2px solid rgb(0, 0, 0);
     margin: 45px auto;
     background-image: url("./background.png");
     background-size: contain;
