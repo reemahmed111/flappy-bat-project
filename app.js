@@ -5,8 +5,8 @@ let gameWidth = 400;
 let gameHeight = 600;
 
 //bat
-let batWidth = 50;
-let batHeight = 50;
+let batWidth = 65;
+let batHeight = 65;
 let batX = gameWidth/9;
 let batY = gameHeight/2.25;
 let batImg;
@@ -24,9 +24,9 @@ window.onload = function() {
     game = this.document.getElementById("game");
     context = game.getContext("2d");
 
-    context.fillStyle = "green";
-    console.log("canvas loaded?, game, context")
-    context.fillRect(bat.x, bat.y, bat.width, bat.height);
+    //context.fillStyle = "green";
+    //console.log("canvas loaded?, game, context")
+    //context.fillRect(bat.x, bat.y, bat.width, bat.height);
 
     //loading bat image
     batImg = new Image();
