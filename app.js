@@ -25,7 +25,10 @@ let bottomPipeImg;
 //game physics
 let velocityX = -1.75;
 let velocityY = 0;
-let gravity = 0.5;
+let gravity = 0.3;
+
+//game over
+let gameOver = false;
 
 
 let bat = {
@@ -36,17 +39,63 @@ let bat = {
 }
 
 
-window.onload = function() {
-    game = this.document.getElementById("game");
+
+window.onload = function(){
+
+    document.getElementById("startBtn").addEventListener("click", startGame);
+}
+
+
+
+ function update() {
+    requestAnimationFrame(update);
+
+    
+    if (gameOver) {
+        return;
+    }
+
+
+    velocityY += gravity;    
+    bat.y = Math.max(bat.y + velocityY , 0);
+
+     context.clearRect(0, 0, gameWidth, gameHeight);
+    context.drawImage(batImg, bat.x, bat.y, bat.width, bat.height);
+
+    if (bat.y > game.height) {
+        gameOver = true;
+    }
+
+    //pipes loop
+    for (let i = 0; i < pipeArray.length; i++) {
+        let pipe = pipeArray[i];
+        pipe.x += velocityX;
+        context.drawImage(pipe.img, pipe.x, pipe.y, pipe.width, pipe.height)
+        
+        if (detectCollision(bat, pipe)) {
+            gameOver = true;
+        }
+    }
+}
+
+
+
+
+function startGame() {
+
+    document.getElementById("startBtn").style.display = "none";
+    game = document.getElementById("game");
+    game.style.display = "block";
+
+
     context = game.getContext("2d");
 
-    //context.fillStyle = "green";
-    //console.log("canvas loaded?, game, context")
-    //context.fillRect(bat.x, bat.y, bat.width, bat.height);
-
+   
     //loading bat image
     batImg = new Image();
     batImg.src = "./bat.png"
+
+
     //drawing the bat
     batImg.onload = function(){
     context.drawImage(batImg, bat.x, bat.y, bat.width, bat.height);
@@ -61,40 +110,28 @@ window.onload = function() {
 
 
         requestAnimationFrame(update);
-     setInterval(placePipes, 1800);
+     setInterval(placePipes, 2200);
 
      document.addEventListener("keydown", moveBat);
 }
 
 
- function update() {
-    requestAnimationFrame(update);
 
-    velocityY += gravity;    
-    bat.y += velocityY;
 
-     context.clearRect(0, 0, gameWidth, gameHeight);
-    context.drawImage(batImg, bat.x, bat.y, bat.width, bat.height);
-
-    //pipes loop
-    for (let i = 0; i < pipeArray.length; i++) {
-        let pipe = pipeArray[i];
-        pipe.x += velocityX;
-        context.drawImage(pipe.img, pipe.x, pipe.y, pipe.width, pipe.height)
-        
-    }};
-
-     
-
+ 
 
 //pipes function
 function placePipes() { 
     
-    let gap = 190;  
+    if (gameOver) {
+        return;
+    }
+
+    let gap = 210;  
       
 
-    let minTopY = -pipeHeight + 30;
-    let maxTopY = - 20; 
+    let minTopY = -pipeHeight + 80;
+    let maxTopY = - 80; 
 
     let randomY = Math.random() * (maxTopY - minTopY) + minTopY;
 
@@ -124,10 +161,21 @@ function placePipes() {
 
 
 }
-    
+ 
+
 
 function moveBat(e) {
     if (e.code == "space" || e.code == "ArrowUp" || e.code == "KeyX") {
         velocityY = -6;
     }
+}
+
+
+
+//bat and pipes collision
+function detectCollision(a, b) {
+return  a.x < b.x + b.width &&
+a.x + a.width > b.x &&
+a.y < b.y + b.height &&
+a.y + a.height > b.y;
 }
