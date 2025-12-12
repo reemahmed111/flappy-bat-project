@@ -64,12 +64,15 @@ window.onload = function(){
     bat.y = Math.max(bat.y + velocityY , 0);
     };
 
+
      context.clearRect(0, 0, gameWidth, gameHeight);
     context.drawImage(batImg, bat.x, bat.y, bat.width, bat.height);
+
 
     if (bat.y > game.height) {
         gameOver = true;
     }
+
 
     //pipes loop
     for (let i = 0; i < pipeArray.length; i++) {
@@ -80,7 +83,15 @@ window.onload = function(){
         if (detectCollision(bat, pipe)) {
             gameOver = true;
         }
+    }
+    if(gameOver) {
+        context.fillStyle = "red";
+        context.font = "60px Silkscreen, sans-serif";
+        context.textAlign = "center";
+        context.fillText("GAME OVER", gameWidth / 2, gameHeight / 2);
+        return;
     }};
+
 
 
 
