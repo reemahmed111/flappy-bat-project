@@ -4,9 +4,13 @@ let context;
 let gameWidth = 900;
 let gameHeight = 600;
 
+
+//game started
+let gameStarted = false;
+
 //bat
-let batWidth = 65;
-let batHeight = 65;
+let batWidth = 60;
+let batHeight = 60;
 let batX = gameWidth/12;
 let batY = gameHeight/2.25;
 let batImg;
@@ -55,9 +59,10 @@ window.onload = function(){
         return;
     }
 
-
+    if (gameStarted) {
     velocityY += gravity;    
     bat.y = Math.max(bat.y + velocityY , 0);
+    };
 
      context.clearRect(0, 0, gameWidth, gameHeight);
     context.drawImage(batImg, bat.x, bat.y, bat.width, bat.height);
@@ -89,6 +94,7 @@ function startGame() {
     document.getElementById("score").style.display = "block";
 
     //blurring the background
+    document.getElementById("gifBackground").style.filter = "blur(12px)";
 
     context = game.getContext("2d");
 
@@ -129,7 +135,7 @@ function placePipes() {
         return;
     }
 
-    let gap = 210;  
+    let gap = 180;  
       
 
     let minTopY = -pipeHeight + 80;
@@ -166,6 +172,9 @@ function placePipes() {
 
 function moveBat(e) {
     if (e.code == "space" || e.code == "ArrowUp" || e.code == "KeyX") {
+        if (!gameStarted){
+            gameStarted = true;
+        }
         velocityY = -6;
     }};
 
