@@ -3,6 +3,8 @@
     background: rgb(6, 33, 43);
     font-family: Arial, sans-serif;
     text-align: center;
+     background: url("bat.gif") ;
+     background-size: cover;  
 }
 
 #game {
@@ -10,14 +12,58 @@
     height: 600px;
     overflow: hidden;
     position:relative;
-    border: 2px solid rgb(0, 0, 0);
     margin: 45px auto;
     background-image: url("./background.png");
     /* background-size: contain; */
+
+    border: 4px solid #3e0715;
+    box-shadow: 0 0 50px #7c1831, 0 0 80px #710f29;
+    border-radius: 10px;
 }
 
 #score {
     text-align: center;
     margin-top: 0;
     margin-bottom: 0;
+    display: none;
 }
+
+
+
+#startBtn {
+    position: absolute;       
+    top: 50%;                
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;         
+
+    color: white;
+    background-color: rgb(65, 13, 13);
+    padding: 18px 28px;
+    font-size: 20px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+     box-shadow: 0 0 15px #880929;
+    transition: 0.25s;
+}
+
+#startBtn:hover {
+    box-shadow: 0 0 25px #ffffff, 0 0 50px #b7123e;
+    transform: translate(-50%, -50%) scale(1.9);
+    background: #6e0521;
+}
+
+#startBackground{
+    position: fixed;
+inset: 0;
+background: url("bat.gif");
+background-size: cover;
+z-index: 1;
+ transition: filter 0.5s ease;
+}
+
+
+
+
+

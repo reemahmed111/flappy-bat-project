@@ -36,14 +36,14 @@ let bat = {
     y: batY,
     width: batWidth,
     height: batHeight
-}
+};
 
 
 
 window.onload = function(){
 
     document.getElementById("startBtn").addEventListener("click", startGame);
-}
+};
 
 
 
@@ -75,8 +75,7 @@ window.onload = function(){
         if (detectCollision(bat, pipe)) {
             gameOver = true;
         }
-    }
-}
+    }};
 
 
 
@@ -87,6 +86,9 @@ function startGame() {
     game = document.getElementById("game");
     game.style.display = "block";
 
+    document.getElementById("score").style.display = "block";
+
+    //blurring the background
 
     context = game.getContext("2d");
 
@@ -113,7 +115,7 @@ function startGame() {
      setInterval(placePipes, 2200);
 
      document.addEventListener("keydown", moveBat);
-}
+};
 
 
 
@@ -158,17 +160,14 @@ function placePipes() {
     //adding it to array
     pipeArray.push(topPipe);
     pipeArray.push(bottomPipe);
-
-
-}
+};
  
 
 
 function moveBat(e) {
     if (e.code == "space" || e.code == "ArrowUp" || e.code == "KeyX") {
         velocityY = -6;
-    }
-}
+    }};
 
 
 
@@ -178,4 +177,4 @@ return  a.x < b.x + b.width &&
 a.x + a.width > b.x &&
 a.y < b.y + b.height &&
 a.y + a.height > b.y;
-}
+};
