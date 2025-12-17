@@ -34,6 +34,9 @@ let gravity = 0.3;
 //game over
 let gameOver = false;
 
+//score
+let score = 0;
+
 
 let bat = {
     x: batX,
@@ -80,16 +83,33 @@ window.onload = function(){
         pipe.x += velocityX;
         context.drawImage(pipe.img, pipe.x, pipe.y, pipe.width, pipe.height)
         
+
+        if (!pipe.passed && pipe.img == topPipeImg && pipe.x << pipe.width < bat.x){
+            pipe.passed = true;
+            score++;
+            document.getElementById("score").innerText = "score: " + score;
+        }
+
+
         if (detectCollision(bat, pipe)) {
             gameOver = true;
         }
     }
     if(gameOver) {
-        context.fillStyle = "red";
-        context.font = "60px Silkscreen, sans-serif";
-        context.textAlign = "center";
-        context.fillText("GAME OVER", gameWidth / 2, gameHeight / 2);
+          context.fillStyle = "rgba(0, 0, 0, 0.5)";
+    context.fillRect(0, 0, gameWidth, gameHeight);
+    context.fillStyle = "#800020";        
+    context.font = "bold 70px Arial";     
+    context.textAlign = "center";
+    context.textBaseline = "middle";
+     context.shadowColor = "#c29393ff";      
+    context.shadowBlur = 20;
+    context.fillText("GAME OVER", gameWidth / 2, gameHeight / 2);
+    context.strokeStyle = "#6a0f1fff";      
+    context.strokeText("GAME OVER", gameWidth / 2, gameHeight / 2);
         return;
+
+
     }};
 
 
