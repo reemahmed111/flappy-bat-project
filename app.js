@@ -37,6 +37,8 @@ let gameOver = false;
 //score
 let score = 0;
 
+//skins
+let chosenSkinPath = "./bat.png";
 
 let bat = {
     x: batX,
@@ -67,7 +69,14 @@ window.onload = function(){
     }
 };
 
+function selectSkin(path, element){
+    chosenSkinPath = path;
 
+    let cards = document.querySelectorAll(".skin-card")
+    cards.forEach(card => card.classList.remove('active'));
+
+    element.classList.add('active');
+}
 
 
  function update() {
