@@ -17,7 +17,7 @@
     /* background-size: contain; */
 
     border: 4px solid #3e0715;
-    box-shadow: 0 0 50px #7c1831, 0 0 80px #710f29;
+    box-shadow: 0 0 90px #7c1831, 0 0 100px #710f29;
     border-radius: 2px;
       z-index: 2;
 }
@@ -30,17 +30,13 @@
     font-size: 28px;
     z-index: 999;
     display: none;
+    font-family: 'Silkscreen';
 }
 
 
 
 #startBtn {
-    position: relative;       
-    top: 50%;                
-    left: 50%;
-    transform: translate(-50%, -50%);
     z-index: 100;         
-
     color: white;
     background-color: rgb(65, 13, 13);
     padding: 18px 28px;
@@ -51,14 +47,16 @@
      box-shadow: 0 0 15px #880929;
     transition: 0.25s;
     margin-bottom: 10px;
+    font-family: 'Silkscreen';
 }
 
 
 #startBtn:hover {
     box-shadow: 0 0 25px #ffffff, 0 0 50px #b7123e;
-    transform: translate(-50%, -50%) scale(1.9);
+    transform: scale(1.1);
     background: #6e0521;
 }
+
 
 
 #gifBackground {
@@ -84,7 +82,7 @@
 }
 
 #skinMenuBtn {
-     color: white;
+    color:#ffffff;
     background-color: rgb(65, 13, 13);
     padding: 18px 28px;
     font-size: 20px;
@@ -94,11 +92,15 @@
      box-shadow: 0 0 15px #880929;
     cursor: pointer;
     transition: 0.3s;
+    font-family: 'Silkscreen';
 }
 
+
+
 #skinMenuBtn:hover {
-    background: #7c1831;
-    box-shadow: 0 0 15px #7c1831;
+   box-shadow: 0 0 25px #ffffff, 0 0 50px #b7123e;
+    transform: scale(1.1);
+    background: #6e0521;
 }
 
 #skinModal {
@@ -109,10 +111,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: 'Silkscreen';
 }
 
 .modal-content {
-    background: #1a0208;
+    background: #350c16;
     padding: 40px;
     border: 3px solid #7c1831;
     border-radius: 20px;
@@ -121,52 +124,95 @@
 
 .skin-grid {
     display: flex;
-    gap: 30px;
+    gap: 35px;
     margin-bottom: 30px;
 }
 
 .skin-card {
-    border: 2px solid #3e0715;
+    border: 2px solid #5a192a;
     padding: 15px;
     border-radius: 12px;
     cursor: pointer;
-    transition: 0.3s;
-    background: #0d0104;
+    transition: 0.2s;
+    background: #21060d;
     width: 100px;
 }
 
 .skin-card img {
-    width: 60px;
-    height: 60px;
+    width: 88px;
+    height: 85px;
     object-fit: contain;
+    transform: 0.2;
 }
 
 .skin-card p {
-    color: white;
+    color: rgb(252, 251, 251);
     margin-top: 10px;
     font-size: 14px;
 }
 
 .skin-card:hover {
-    transform: translateY(-5px);
-    border-color: #b7123e;
+    transform: translateY(-2px);
+    border-color: #991b36;
 }
 
 .skin-card.active {
-    border-color: #ff0040;
-    box-shadow: 0 0 20px #ff0040;
-    background: #3e0715;
+    border-color: #3b0a17;
+    box-shadow: 0 0 50px #c70f40;
+    background: #4c0d1c;
+    transform: scale(1.2);
 }
 
 #closeModal {
     background: none;
-    border: 1px solid white;
-    color: white;
+    border: 2px solid rgb(72, 21, 21);
+    color: rgb(255, 254, 254);
     padding: 8px 16px;
     cursor: pointer;
     border-radius: 5px;
+    font-size: 13px;
+    font-family: 'Silkscreen';
 }
 
 
+#game-title{
+    position: absolute;
+    top: 50px;         
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Silkscreen', system-ui;
+    font-size: 120px;   
+    color: #dc0e0e;     
+    z-index: 100;        
+    margin: 0;
+    white-space: nowrap; 
+    text-shadow: 
+        0 0 15px #722121, 
+        0 0 30px #0f0202,
+        10px 10px 19px #310707;
+        
+    letter-spacing: 10px;
+    user-select: none;   
+}
+
+
+@keyframes shake {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { transform: translate(-3px, 0px) rotate(1deg); }
+    30% { transform: translate(3px, 2px) rotate(0deg); }
+    40% { transform: translate(1px, -1px) rotate(1deg); }
+    50% { transform: translate(-1px, 2px) rotate(-1deg); }
+    60% { transform: translate(-3px, 1px) rotate(0deg); }
+    70% { transform: translate(3px, 1px) rotate(-1deg); }
+    80% { transform: translate(-1px, -1px) rotate(1deg); }
+    90% { transform: translate(1px, 2px) rotate(0deg); }
+    100% { transform: translate(0px, 0px) rotate(0deg); }
+}
+
+.crash-shake {
+    animation: shake 0.4s; 
+    animation-iteration-count: 1;
+}
 
 

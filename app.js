@@ -9,8 +9,8 @@ let gameHeight = 600;
 let gameStarted = false;
 
 //bat
-let batWidth = 60;
-let batHeight = 60;
+let batWidth = 70;
+let batHeight = 65;
 let batX = gameWidth/12;
 let batY = gameHeight/2.25;
 let batImg;
@@ -118,24 +118,28 @@ function selectSkin(path, element){
 
         if (detectCollision(bat, pipe)) {
             gameOver = true;
+            let gameBoard = document.getElementById("game");
+            gameBoard.classList.add("crash-shake");
+            setTimeout(() => {
+        gameBoard.classList.remove("crash-shake");
+        }, 340);
         }
+
     }
 
     if(gameOver) {
-          context.fillStyle = "rgba(0, 0, 0, 0.5)";
+        context.fillStyle = "rgba(0, 0, 0, 0.5)";
     context.fillRect(0, 0, gameWidth, gameHeight);
-    context.fillStyle = "#800020";        
-    context.font = "bold 70px Arial";     
+    context.fillStyle = "#d61111ff";        
+    context.font = "bold 70px Silkscreen";     
     context.textAlign = "center";
     context.textBaseline = "middle";
-     context.shadowColor = "#c29393ff";      
+     context.shadowColor = "#fdf6f6ff";      
     context.shadowBlur = 20;
     context.fillText("GAME OVER", gameWidth / 2, gameHeight / 2);
-    context.strokeStyle = "#6a0f1fff";      
+    context.strokeStyle = "#26040bff";      
     context.strokeText("GAME OVER", gameWidth / 2, gameHeight / 2);
         return;
-
-
     }};
 
 
@@ -143,6 +147,7 @@ function selectSkin(path, element){
 
 
 function startGame() {
+    document.getElementById("game-title").style.display = "none";
 
     document.getElementById("menuContainer").style.display = "none";
     game = document.getElementById("game");
@@ -158,7 +163,7 @@ function startGame() {
    
     //loading bat image
     batImg = new Image();
-    batImg.src = "./bat.png"
+    batImg.src = chosenSkinPath;
 
 
     //drawing the bat
@@ -192,7 +197,7 @@ function placePipes() {
         return;
     }
 
-    let gap = 180;  
+    let gap = 150;  
       
 
     let minTopY = -pipeHeight + 80;
@@ -239,8 +244,10 @@ function moveBat(e) {
 
 //bat and pipes collision
 function detectCollision(a, b) {
-return  a.x < b.x + b.width &&
-a.x + a.width > b.x &&
-a.y < b.y + b.height &&
-a.y + a.height > b.y;
+    let p = 6;
+
+return  a.x + p < b.x + b.width - p &&
+a.x + a.width - p > b.x + p &&
+a.y + p < b.y + b.height - p &&
+a.y + a.height - p > b.y + p;
 };
