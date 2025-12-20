@@ -13,7 +13,47 @@
  <script src="app.js"></script>
 <body>
     
-    <button id="startBtn">PLAY</button>
+    <div id="menuContainer">
+ <button id="startBtn">PLAY</button>
+ <button id="skinMenuBtn">SKINS</button>
+    </div>
+
+    <div id="skinModal" style="display: none;">
+        <div class="modal-content">
+            <h2>SELECT YOUR BAT</h2>
+            <div class="skin-grid">
+
+                <div class="skin-card active" onclick="selectSkin('./bat.png' , this)">
+                    <img src="./bat.png" alt="classic bat">
+                    <p class="classic"></p>
+                </div>
+
+                <div class="skin-card" onclick="selectSkin('./redbat.png' , this)">
+                    <img src="./bat-red.png" alt="red bat">
+                    <p class="red"></p>
+                </div>
+
+                <div class="skin-card" onclick="selectSkin('./blackbat.png' , this)">
+                    <img src="./blackbat.png" alt="black bat">
+                    <p class="black"></p>
+                </div>
+
+                <div class="skin-card" onclick="selectSkin('./greybat.png' , this)">
+                    <img src="./greybat.png" alt="grey bat">
+                    <p class="grey"></p>
+                </div>
+
+                <div class="skin-card" onclick="selectSkin('./greenbat.png' , this)">
+                    <img src="./greenbat.png" alt="green bat">
+                    <p class="green"></p>
+                </div>
+
+            </div>
+            <button id="closeModal">BACK</button>
+        </div>
+    </div>
+
+
     <canvas id="game" width="900" height="600" style="display: none;"></canvas>
     <div id="gifBackground"></div>
 

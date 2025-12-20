@@ -95,6 +95,7 @@ window.onload = function(){
             gameOver = true;
         }
     }
+    
     if(gameOver) {
           context.fillStyle = "rgba(0, 0, 0, 0.5)";
     context.fillRect(0, 0, gameWidth, gameHeight);

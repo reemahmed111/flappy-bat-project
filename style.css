@@ -35,7 +35,7 @@
 
 
 #startBtn {
-    position: absolute;       
+    position: relative;       
     top: 50%;                
     left: 50%;
     transform: translate(-50%, -50%);
@@ -50,7 +50,9 @@
     cursor: pointer;
      box-shadow: 0 0 15px #880929;
     transition: 0.25s;
+    margin-bottom: 10px;
 }
+
 
 #startBtn:hover {
     box-shadow: 0 0 25px #ffffff, 0 0 50px #b7123e;
@@ -68,6 +70,101 @@
     transition: filter 0.5s ease;  
 }
 
+
+#menuContainer{
+   position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    z-index: 105;
+}
+
+#skinMenuBtn {
+     color: white;
+    background-color: rgb(65, 13, 13);
+    padding: 18px 28px;
+    font-size: 20px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+     box-shadow: 0 0 15px #880929;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#skinMenuBtn:hover {
+    background: #7c1831;
+    box-shadow: 0 0 15px #7c1831;
+}
+
+#skinModal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 200;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: #1a0208;
+    padding: 40px;
+    border: 3px solid #7c1831;
+    border-radius: 20px;
+    text-align: center;
+}
+
+.skin-grid {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.skin-card {
+    border: 2px solid #3e0715;
+    padding: 15px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.3s;
+    background: #0d0104;
+    width: 100px;
+}
+
+.skin-card img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+}
+
+.skin-card p {
+    color: white;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.skin-card:hover {
+    transform: translateY(-5px);
+    border-color: #b7123e;
+}
+
+.skin-card.active {
+    border-color: #ff0040;
+    box-shadow: 0 0 20px #ff0040;
+    background: #3e0715;
+}
+
+#closeModal {
+    background: none;
+    border: 1px solid white;
+    color: white;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
 
 
 
