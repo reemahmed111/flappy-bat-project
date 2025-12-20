@@ -46,11 +46,27 @@ let bat = {
 };
 
 
-
 window.onload = function(){
-
     document.getElementById("startBtn").addEventListener("click", startGame);
+
+   let startBtn = document.getElementById("startBtn");
+    let skinBtn = document.getElementById("skinMenuBtn");
+    let modal = document.getElementById("skinModal");
+    let closeBtn = document.getElementById("closeModal");
+
+    startBtn.addEventListener("click" , startGame)
+
+    skinBtn.onclick = function(){
+    modal.style.display = "flex";
+    menuContainer.style.display = "none";
+}
+
+    closeBtn.onclick = function() {
+        modal.style.display = "none";
+        menuContainer.style.display = "flex";
+    }
 };
+
 
 
 
@@ -95,7 +111,7 @@ window.onload = function(){
             gameOver = true;
         }
     }
-    
+
     if(gameOver) {
           context.fillStyle = "rgba(0, 0, 0, 0.5)";
     context.fillRect(0, 0, gameWidth, gameHeight);
@@ -119,7 +135,7 @@ window.onload = function(){
 
 function startGame() {
 
-    document.getElementById("startBtn").style.display = "none";
+    document.getElementById("menuContainer").style.display = "none";
     game = document.getElementById("game");
     game.style.display = "block";
 
