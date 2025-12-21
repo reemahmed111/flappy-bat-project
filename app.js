@@ -40,8 +40,11 @@ let score = 0;
 //skins
 let chosenSkinPath = "./bat.png";
 
-//music
+//audios
 let bgMusic;
+let musicOn = true;
+let crashSound;
+let crashPlayed = false;
 
 let bat = {
     x: batX,
@@ -51,8 +54,10 @@ let bat = {
 };
 
 
+
 window.onload = function(){
     document.getElementById("startBtn").addEventListener("click", startGame);
+    document.getElementById("musicBtn").addEventListener("click", toggleMusic);
 
    let startBtn = document.getElementById("startBtn");
     let skinBtn = document.getElementById("skinMenuBtn");
@@ -69,8 +74,7 @@ window.onload = function(){
     closeBtn.onclick = function() {
         modal.style.display = "none";
         menuContainer.style.display = "flex";
-    }
-};
+    }};
 
 function selectSkin(path, element){
     chosenSkinPath = path;
@@ -78,66 +82,70 @@ function selectSkin(path, element){
     let cards = document.querySelectorAll(".skin-card")
     cards.forEach(card => card.classList.remove('active'));
 
-    element.classList.add('active');
-}
+    element.classList.add('active')};
 
 
- function update() {
+
+function update() {
     requestAnimationFrame(update);
     if (gameOver) {
         return;
-        }
+}
    
 
-    if (gameStarted) {
+if (gameStarted) {
     velocityY += gravity;    
     bat.y = Math.max(bat.y + velocityY , 0);
-    };
+}
 
+context.clearRect(0, 0, gameWidth, gameHeight);
+context.drawImage(batImg, bat.x, bat.y, bat.width, bat.height);
 
-    context.clearRect(0, 0, gameWidth, gameHeight);
-    context.drawImage(batImg, bat.x, bat.y, bat.width, bat.height);
-
-
-    if (bat.y > game.height) {
+if (bat.y > game.height) {
         gameOver = true;
-    }
+}
 
 
     //pipes loop
-    for (let i = 0; i < pipeArray.length; i++) {
-        let pipe = pipeArray[i];
-        pipe.x += velocityX;
-        context.drawImage(pipe.img, pipe.x, pipe.y, pipe.width, pipe.height)
+for (let i = 0; i < pipeArray.length; i++) {
+    let pipe = pipeArray[i];
+    pipe.x += velocityX;
+    context.drawImage(pipe.img, pipe.x, pipe.y, pipe.width, pipe.height)
         
 
-        if (!pipe.passed && pipe.img == topPipeImg && pipe.x << pipe.width < bat.x){
-            pipe.passed = true;
-            score++;
-            document.getElementById("score").innerText = "score: " + score;
-        }
+    if (!pipe.passed && pipe.img == topPipeImg && pipe.x << pipe.width < bat.x){
+        pipe.passed = true;
+        score++;
+        document.getElementById("score").innerText = "score: " + score;
+        };
 
 
-        if (detectCollision(bat, pipe)) {
-            gameOver = true;
-            let gameBoard = document.getElementById("game");
-            gameBoard.classList.add("crash-shake");
-            setTimeout(() => {
-        gameBoard.classList.remove("crash-shake");
-        }, 340);
-        }
+    if (detectCollision(bat, pipe)) {
 
-    }
+        if(!crashPlayed){
+        crashSound.currentTime = 0;
+        crashSound.play();
+        crashPlayed = true;
+        };
 
-    if(gameOver) {
+    gameOver = true;
+    let gameBoard = document.getElementById("game");
+    gameBoard.classList.add("crash-shake");
+    setTimeout(() => {
+    gameBoard.classList.remove("crash-shake");
+    }, 340);
+}};
 
-        if(bgMusic) {
-            bgMusic.pause();bgMusic.currentTime = 0;
-        }
 
-     context.fillStyle = "rgba(0, 0, 0, 0.5)";
+if(gameOver) {
+
+    if(bgMusic) {
+        bgMusic.pause();bgMusic.currentTime = 0;
+        };
+
+    context.fillStyle = "rgba(0, 0, 0, 0.5)";
     context.fillRect(0, 0, gameWidth, gameHeight);
-    context.fillStyle = "#d61111ff";        
+    context.fillStyle = "#c72323ff";        
     context.font = "bold 70px Silkscreen";     
     context.textAlign = "center";
     context.textBaseline = "middle";
@@ -147,13 +155,18 @@ function selectSkin(path, element){
     context.strokeStyle = "#26040bff";      
     context.strokeText("GAME OVER", gameWidth / 2, gameHeight / 2);
         return;
+
     }};
 
 
 
-
-
 function startGame() {
+gameOver = false;
+crashPlayed = false;
+score = 0;
+pipeArray = [];
+
+
     document.getElementById("game-title").style.display = "none";
 
     document.getElementById("menuContainer").style.display = "none";
@@ -162,17 +175,22 @@ function startGame() {
 
     document.getElementById("score").style.display = "block";
 
-    //blurring the background
     document.getElementById("gifBackground").style.filter = "blur(12px)";
 
     context = game.getContext("2d");
 
-    if(!bgMusic){
-        bgMusic = new Audio("./background-music.mp3");
-        bgMusic.loop = true;
-        bgMusic.volume = 0.4;
+if(!bgMusic){
+    bgMusic = new Audio("./background-music.mp3");
+    bgMusic.loop = true;
+    bgMusic.volume = 0.4;
+    bgMusic.play();
+
+    if(musicOn){
         bgMusic.play();
-    }
+}
+
+    crashSound = new Audio("./pipehit.mp3");
+    crashSound.volume = 0.6;
 
    
     //loading bat image
@@ -197,7 +215,7 @@ function startGame() {
      setInterval(placePipes, 2200);
 
      document.addEventListener("keydown", moveBat);
-};
+}};
 
 
 
@@ -258,10 +276,28 @@ function moveBat(e) {
 
 //bat and pipes collision
 function detectCollision(a, b) {
-    let p = 6;
 
-return  a.x + p < b.x + b.width - p &&
-a.x + a.width - p > b.x + p &&
-a.y + p < b.y + b.height - p &&
-a.y + a.height - p > b.y + p;
+    let p = 8;
+
+    return  a.x + p < b.x + b.width - p &&
+    a.x + a.width - p > b.x + p &&
+    a.y + p < b.y + b.height - p &&
+    a.y + a.height - p > b.y + p;
 };
+
+
+function toggleMusic() {
+    if (!bgMusic) return;
+
+    if (musicOn){
+        bgMusic.pause();
+        document.getElementById("musicBtn").innerText = "🔇 MUSIC";
+    }
+
+    else{
+         bgMusic.play();
+        document.getElementById("musicBtn").innerText = "🔊 MUSIC";
+    }
+
+      musicOn = !musicOn;
+}

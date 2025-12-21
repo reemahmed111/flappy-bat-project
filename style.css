@@ -26,11 +26,12 @@
     position: absolute;
     top: 10px;
     right: 20px;
-    color: rgb(118, 170, 167);
+    color: rgb(232, 16, 16);
     font-size: 28px;
     z-index: 999;
     display: none;
     font-family: 'Silkscreen';
+    text-shadow: 0 0 20px rgb(229, 165, 165);
 }
 
 
@@ -214,5 +215,25 @@
     animation: shake 0.4s; 
     animation-iteration-count: 1;
 }
+
+#musicBtn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    padding: 10px 16px;
+    font-family: "Silkscreen";
+    font-size: 14px;
+    background: #26040b;
+    color: #fdf6f6;
+    border: 2px solid #d61111;
+    border-radius: 8px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+#musicBtn:hover {
+    box-shadow: 0 0 20px #d61111;
+}
+
 
 
