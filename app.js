@@ -45,6 +45,8 @@ let bgMusic;
 let musicOn = true;
 let crashSound;
 let crashPlayed = false;
+let fallSound;
+let fallPlayed = false;
 
 let bat = {
     x: batX,
@@ -101,7 +103,14 @@ if (gameStarted) {
 context.clearRect(0, 0, gameWidth, gameHeight);
 context.drawImage(batImg, bat.x, bat.y, bat.width, bat.height);
 
+
 if (bat.y > game.height) {
+
+     if (!fallPlayed) {
+        fallSound.currentTime = 0;
+        fallSound.play();
+        fallPlayed = true;
+    }
         gameOver = true;
 }
 
@@ -122,7 +131,7 @@ for (let i = 0; i < pipeArray.length; i++) {
 
     if (detectCollision(bat, pipe)) {
 
-        if(!crashPlayed){
+        if(!crashPlayed && !fallPlayed){
         crashSound.currentTime = 0;
         crashSound.play();
         crashPlayed = true;
@@ -163,6 +172,7 @@ if(gameOver) {
 function startGame() {
 gameOver = false;
 crashPlayed = false;
+fallPlayed = false;
 score = 0;
 pipeArray = [];
 
@@ -191,6 +201,9 @@ if(!bgMusic){
 
     crashSound = new Audio("./pipehit.mp3");
     crashSound.volume = 0.6;
+
+    fallSound = new Audio("./batfall.mp3");
+    fallSound.volume = 0.6;
 
    
     //loading bat image
