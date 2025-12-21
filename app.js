@@ -292,7 +292,7 @@ function placePipes() {
 
     let isCursed = Math.random() < 0.15
     if (isCursed) {
-    gap = 130;
+    gap = 123;
     };
 
     let topPipe = {
