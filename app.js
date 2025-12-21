@@ -116,11 +116,34 @@ if (bat.y > game.height) {
 
 
     //pipes loop
+//for (let i = 0; i < pipeArray.length; i++) {
+   // let pipe = pipeArray[i];
+   // pipe.x += velocityX;
+    //context.drawImage(pipe.img, pipe.x, pipe.y, pipe.width, pipe.height)
+       
+    
 for (let i = 0; i < pipeArray.length; i++) {
     let pipe = pipeArray[i];
+
     pipe.x += velocityX;
-    context.drawImage(pipe.img, pipe.x, pipe.y, pipe.width, pipe.height)
-        
+
+    if (pipe.cursed) {
+        context.save();
+
+        context.fillStyle = "rgba(4, 41, 34, 0.5)";
+        context.fillRect(pipe.x - 2, pipe.y - 2, pipe.width + 4, pipe.height + 4);
+
+        context.shadowColor = "#226634ff";
+        context.shadowBlur = 70;
+    }
+
+    context.drawImage(pipe.img, pipe.x, pipe.y, pipe.width, pipe.height);
+
+    if (pipe.cursed) context.restore();
+
+
+
+
 
     if (!pipe.passed && pipe.img == topPipeImg && pipe.x << pipe.width < bat.x){
         pipe.passed = true;
@@ -143,6 +166,22 @@ for (let i = 0; i < pipeArray.length; i++) {
     setTimeout(() => {
     gameBoard.classList.remove("crash-shake");
     }, 340);
+
+    for (let i = 0; i < pipeArray.length; i++) {
+    let pipe = pipeArray[i];
+
+    pipe.x += velocityX;
+
+    if (pipe.cursed) {
+        context.shadowColor = "#ff0000";
+        context.shadowBlur = 20;
+    }
+
+    context.drawImage(pipe.img, pipe.x, pipe.y, pipe.width, pipe.height);
+
+    context.shadowBlur = 0;
+}
+
 }};
 
 
@@ -251,13 +290,19 @@ function placePipes() {
     let randomY = Math.random() * (maxTopY - minTopY) + minTopY;
 
 
+    let isCursed = Math.random() < 0.15
+    if (isCursed) {
+    gap = 130;
+    };
+
     let topPipe = {
     img: topPipeImg,
     x: pipeX,
     y: randomY,
     width: pipeWidth,
     height: pipeHeight,
-    passed: false
+    passed: false,
+    cursed: isCursed
     };
 
 
@@ -267,7 +312,8 @@ function placePipes() {
         y:  randomY + pipeHeight + gap,
         width: pipeWidth,
         height: pipeHeight,
-        passed: false
+        passed: false,
+        cursed: isCursed
     };
 
     //adding it to array
