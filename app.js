@@ -40,6 +40,9 @@ let score = 0;
 //skins
 let chosenSkinPath = "./bat.png";
 
+//music
+let bgMusic;
+
 let bat = {
     x: batX,
     y: batY,
@@ -81,11 +84,10 @@ function selectSkin(path, element){
 
  function update() {
     requestAnimationFrame(update);
-
-    
     if (gameOver) {
         return;
-    }
+        }
+   
 
     if (gameStarted) {
     velocityY += gravity;    
@@ -93,7 +95,7 @@ function selectSkin(path, element){
     };
 
 
-     context.clearRect(0, 0, gameWidth, gameHeight);
+    context.clearRect(0, 0, gameWidth, gameHeight);
     context.drawImage(batImg, bat.x, bat.y, bat.width, bat.height);
 
 
@@ -128,7 +130,12 @@ function selectSkin(path, element){
     }
 
     if(gameOver) {
-        context.fillStyle = "rgba(0, 0, 0, 0.5)";
+
+        if(bgMusic) {
+            bgMusic.pause();bgMusic.currentTime = 0;
+        }
+
+     context.fillStyle = "rgba(0, 0, 0, 0.5)";
     context.fillRect(0, 0, gameWidth, gameHeight);
     context.fillStyle = "#d61111ff";        
     context.font = "bold 70px Silkscreen";     
@@ -159,6 +166,13 @@ function startGame() {
     document.getElementById("gifBackground").style.filter = "blur(12px)";
 
     context = game.getContext("2d");
+
+    if(!bgMusic){
+        bgMusic = new Audio("./background-music.mp3");
+        bgMusic.loop = true;
+        bgMusic.volume = 0.4;
+        bgMusic.play();
+    }
 
    
     //loading bat image
